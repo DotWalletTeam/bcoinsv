@@ -21,7 +21,7 @@ const flags = [
 function isSuccess(stack, script, expected) {
   for (const flag of flags) {
     const input = stack.clone();
-    script.execute(input, flag | common.flags.VERIFY_OPMUL);
+    script.execute(input, flag | common.flags.VERIFY_OPMUL | common.flags.VERIFY_OPINVERT);
     // TODO: switch to assert.deepEqual
     assert.strictEqual(input.toString(), expected.toString());
   }
@@ -32,7 +32,7 @@ function isError(stack, script, error) {
     const input = stack.clone();
     let err;
     try {
-      script.execute(input, flag | common.flags.VERIFY_OPMUL);
+      script.execute(input, flag | common.flags.VERIFY_OPMUL | common.flags.VERIFY_OPINVERT);
     } catch (e) {
       err = e;
     }
@@ -291,7 +291,7 @@ describe('Monolith', function () {
     isError(stack, Script.fromString('OP_NUM2BIN'), 'IMPOSSIBLE_ENCODING');
   });
 
-  it('should match div and mod arithmetic ops', async () => {
+  it('should match arithmetic ops', async () => {
     const arithmeticTestCases = [
       // [a, b, div, mod]
       // 0x185377af / 0x85f41b01 = -4
@@ -331,6 +331,7 @@ describe('Monolith', function () {
     }
   });
 
+  // TODO: Move this and other Nov 2018 opcodes to magnetic activation file
   it('should match mul arithmetic ops', async () => {
     const arithmeticTestCases = [
       ['01', '01', '01'],
@@ -348,6 +349,13 @@ describe('Monolith', function () {
       const mul = new Stack([Buffer.from(test[2], 'hex')]);
       testBitwiseOp(a, b, 'OP_MUL', mul);
     }
+  })
+
+  it('should invert bytes', async () => {
+      const stack = new Stack();
+      stack.push(Buffer.from('ff001177', 'hex'));
+      const script = Script.fromString('OP_INVERT');
+      isSuccess(stack, script, '00ffee88');
   })
 
   for (const op of ['OP_MUL', 'OP_DIV', 'OP_MOD']) {
