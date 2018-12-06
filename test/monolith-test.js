@@ -337,10 +337,7 @@ describe('Monolith', function () {
       ['01', '01', '01'],
       ['04', '82', '88'],
       ['82', '81', '02'],
-      // FIXME: The result is numerically correct but not minimal.
-      ['44444484', '00000002', '00000088888888'],
-      // FIXME: This overflow case should not pass. Bug in Stack or ScriptNum.
-      ['ffffffff', 'ffffffff', '01000000ffffff3f'],
+      ['44444484', '02', '88888888'],
     ];
 
     for (const test of arithmeticTestCases) {
@@ -352,10 +349,10 @@ describe('Monolith', function () {
   })
 
   it('should invert bytes', async () => {
-      const stack = new Stack();
-      stack.push(Buffer.from('ff001177', 'hex'));
-      const script = Script.fromString('OP_INVERT');
-      isSuccess(stack, script, '00ffee88');
+    const stack = new Stack();
+    stack.push(Buffer.from('ff001177', 'hex'));
+    const script = Script.fromString('OP_INVERT');
+    isSuccess(stack, script, '00ffee88');
   })
 
   for (const op of ['OP_MUL', 'OP_DIV', 'OP_MOD']) {
