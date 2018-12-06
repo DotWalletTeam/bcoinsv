@@ -46,6 +46,7 @@
     "bstring": "~0.3.4",
     "btcp": "~0.1.3",
     "buffer-map": "~0.0.4",
+    "buffershift": "~0.0.2",
     "bufio": "~1.0.3",
     "bupnp": "~0.2.4",
     "bval": "~0.1.4",

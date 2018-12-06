@@ -21,7 +21,8 @@ const flags = [
 function isSuccess(stack, script, expected) {
   for (const flag of flags) {
     const input = stack.clone();
-    script.execute(input, flag | common.flags.VERIFY_OPMUL | common.flags.VERIFY_OPINVERT);
+    script.execute(input, flag | common.flags.VERIFY_OPMUL | common.flags.VERIFY_OPINVERT |
+      common.flags.VERIFY_OPLSHIFT | common.flags.VERIFY_OPRSHIFT);
     // TODO: switch to assert.deepEqual
     assert.strictEqual(input.toString(), expected.toString());
   }
@@ -32,7 +33,8 @@ function isError(stack, script, error) {
     const input = stack.clone();
     let err;
     try {
-      script.execute(input, flag | common.flags.VERIFY_OPMUL | common.flags.VERIFY_OPINVERT);
+      script.execute(input, flag | common.flags.VERIFY_OPMUL | common.flags.VERIFY_OPINVERT |
+        common.flags.VERIFY_OPLSHIFT | common.flags.VERIFY_OPRSHIFT);
     } catch (e) {
       err = e;
     }
@@ -353,6 +355,22 @@ describe('Monolith', function () {
     stack.push(Buffer.from('ff001177', 'hex'));
     const script = Script.fromString('OP_INVERT');
     isSuccess(stack, script, '00ffee88');
+  })
+
+  it('should lshift bytes', async () => {
+    const stack = new Stack();
+    stack.push(Buffer.from('ff', 'hex'));
+    stack.push(Buffer.from('02', 'hex'));
+    const script = Script.fromString('OP_LSHIFT');
+    isSuccess(stack, script, 'fc');
+  })
+
+  it('should rshift bytes', async () => {
+    const stack = new Stack();
+    stack.push(Buffer.from('5020', 'hex'));
+    stack.push(Buffer.from('01', 'hex'));
+    const script = Script.fromString('OP_RSHIFT');
+    isSuccess(stack, script, '2810');
   })
 
   for (const op of ['OP_MUL', 'OP_DIV', 'OP_MOD']) {
