@@ -1,28 +1,28 @@
 
-By default, the mainnet bcash config files will reside in `~/.bcash/bcash.conf` and `~/.bcash/wallet.conf`.
-Any parameter passed to bcash at startup will have precedence over the config file.
-Even if you are just running `bclient` without bcash installed (to access a remote server, for example)
-the configuration files would still reside in `~/.bcash/`
+By default, the mainnet bcoinsv config files will reside in `~/.bcoinsv/bcoinsv.conf` and `~/.bcoinsv/wallet.conf`.
+Any parameter passed to bcoinsv at startup will have precedence over the config file.
+Even if you are just running `bclient` without bcoinsv installed (to access a remote server, for example)
+the configuration files would still reside in `~/.bcoinsv/`
 
 For example:
 
 ``` bash
-bcash --network=regtest --api-key=menace --daemon
+bcoinsv --network=regtest --api-key=menace --daemon
 ```
 
-...will read the config file at `~/.bcash/regtest/bcash.conf`
+...will read the config file at `~/.bcoinsv/regtest/bcoinsv.conf`
 and ignore any `network` or `api-key` parameters listed in that file.
 
-All bcash configuration options work in the config file, CLI arguments, 
+All bcoinsv configuration options work in the config file, CLI arguments, 
 process environment, and in the constructor parameters when instantiating new `node` objects in JavaScript.
 Each method has slightly different formatting. Note specifically the usage of hyphens and capital letters.
 See the examples below:
 
 | config file | CLI parameter | environment variable | JS object constructor |
 |---|---|---|---|
-| `network: testnet` | `--network=testnet` | `BCASH_NETWORK=testnet` | `{network: 'testnet'}` |
-| `log-level: debug` | `--log-level=debug` | `BCASH_LOG_LEVEL=debug` | `{logLevel: 'debug'}` |
-| `max-outbound: 8` | `--max-outbound=8` | `BCASH_MAX_OUTBOUND=8` | `{maxOutbound: 8}`|
+| `network: testnet` | `--network=testnet` | `BCOINSV_NETWORK=testnet` | `{network: 'testnet'}` |
+| `log-level: debug` | `--log-level=debug` | `BCOINSV_LOG_LEVEL=debug` | `{logLevel: 'debug'}` |
+| `max-outbound: 8` | `--max-outbound=8` | `BCOINSV_MAX_OUTBOUND=8` | `{maxOutbound: 8}`|
 
 
 ## Datadir/Prefix
@@ -32,10 +32,10 @@ Bcoin's datadir is determined by the `prefix` option.
 Example:
 
 ``` bash
-$ bcash --prefix ~/.bcash_spv --spv
+$ bcoinsv --prefix ~/.bcoinsv_spv --spv
 ```
 
-Will create a datadir of `~/.bcash_spv`, containing a chain database, wallet database and log file.
+Will create a datadir of `~/.bcoinsv_spv`, containing a chain database, wallet database and log file.
 
 ## Common Options
 
@@ -48,7 +48,7 @@ Will create a datadir of `~/.bcash_spv`, containing a chain database, wallet dat
 
 ## Node Options
 
-- `prefix`: The data directory (stores databases, logs, and configs) (default=~/.bcash).
+- `prefix`: The data directory (stores databases, logs, and configs) (default=~/.bcoinsv).
 - `db`: Which database backend to use (default=leveldb).
 - `max-files`: Max open files for leveldb. Higher generally means more disk page cache benefits, but also more memory usage (default: 64).
 - `cache-size`: Size (in MB) of leveldb cache and write buffer (default: 32mb).
@@ -94,7 +94,7 @@ Note that certain chain options affect the format and indexing of the chain data
 
 ## Miner Options
 
-- `coinbase-flags`: Coinbase flags (default: mined by bcash).
+- `coinbase-flags`: Coinbase flags (default: mined by bcoinsv).
 - `coinbase-address`: List of payout addresses, randomly selected during block creation (comma-separated).
 - `max-block-weight`: Max block weight to mine (default: 4000000).
 - `reserved-block-weight`: Amount of space reserved for coinbase (default: 4000).

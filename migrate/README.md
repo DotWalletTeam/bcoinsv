@@ -1,7 +1,7 @@
-Bcash Migrations
+BcoinSV Migrations
 ================
 
-There are no migrations necessary for bcash. Current database versions are as
+There are no migrations necessary for bcoinsv. Current database versions are as
 follows:
   - ChainDB - `v5`
   - WalletDB - `v7`

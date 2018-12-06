@@ -9,11 +9,11 @@ const env = process.env;
 module.exports = {
   target: 'web',
   entry: {
-    'bcash': './lib/bcash',
-    'bcash-worker': './lib/workers/worker'
+    'bcoinsv': './lib/bcoinsv',
+    'bcoinsv-worker': './lib/workers/worker'
   },
   output: {
-    library: 'bcash',
+    library: 'bcoinsv',
     libraryTarget: 'umd',
     path: Path.join(__dirname, 'browser'),
     filename: '[name].js'
@@ -24,10 +24,10 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env.BCASH_NETWORK':
-        str(env.BCASH_NETWORK || 'main'),
-      'process.env.BCASH_WORKER_FILE':
-        str(env.BCASH_WORKER_FILE || '/bcash-worker.js')
+      'process.env.BCOINSV_NETWORK':
+        str(env.BCOINSV_NETWORK || 'main'),
+      'process.env.BCOINSV_WORKER_FILE':
+        str(env.BCOINSV_WORKER_FILE || '/bcoinsv-worker.js')
     }),
     new UglifyJsPlugin()
   ]

@@ -1,19 +1,21 @@
 {
-  "name": "bcash",
+  "name": "bcoinsv",
   "version": "1.1.0",
-  "description": "Bitcoin cash bike-shed",
+  "description": "Bitcoin SV bike-shed",
   "license": "MIT",
-  "repository": "git://github.com/bcoin-org/bcash.git",
-  "homepage": "https://github.com/bcoin-org/bcash",
+  "repository": "git://github.com/brentongunning/bcoinsv.git",
+  "homepage": "https://github.com/brentongunning/bcoinsv",
   "bugs": {
-    "url": "https://github.com/bcoin-org/bcash/issues"
+    "url": "https://github.com/brentongunning/bcoinsv/issues"
   },
   "author": "Fedor Indutny <fedor@indutny.com>",
   "contributors": [
-    "Christopher Jeffrey <chjjeffrey@gmail.com>"
+    "Christopher Jeffrey <chjjeffrey@gmail.com>",
+    "Brenton Gunning <brentongunning@gmail.com>"
   ],
   "keywords": [
-    "bcash",
+    "sv",
+    "bsv",
     "bitcoin",
     "blockchain",
     "cryptocurrency",
@@ -56,14 +58,14 @@
   },
   "main": "./lib/bcoin.js",
   "bin": {
-    "bcash": "./bin/bcash",
-    "bcash-node": "./bin/node",
-    "bcash-spvnode": "./bin/spvnode",
-    "bcash-wallet": "./bin/bwallet"
+    "bcoinsv": "./bin/bcoinsv",
+    "bcoinsv-node": "./bin/node",
+    "bcoinsv-spvnode": "./bin/spvnode",
+    "bcoinsv-wallet": "./bin/bwallet"
   },
   "scripts": {
-    "browserify": "browserify -s bcash lib/bcoin-browser.js | uglifyjs -c > bcash.js",
-    "clean": "rm -f {browser/,}{bcash.js,bcash-worker.js,app.js,worker.js}",
+    "browserify": "browserify -s bcoinsv lib/bcoin-browser.js | uglifyjs -c > bcoinsv.js",
+    "clean": "rm -f {browser/,}{bcoinsv.js,bcoinsv-worker.js,app.js,worker.js}",
     "docs": "jsdoc -c jsdoc.json",
     "lint": "eslint $(cat .eslintfiles) || exit 0",
     "lint-file": "eslint",
@@ -83,7 +85,7 @@
     "./lib/hd/wordlist": "./lib/hd/wordlist-browser.js",
     "./lib/workers/child": "./lib/workers/child-browser.js",
     "./lib/workers/parent": "./lib/workers/parent-browser.js",
-    "./lib/bcash": "./lib/bcoin-browser.js"
+    "./lib/bcoinsv": "./lib/bcoin-browser.js"
   },
   "bcoin": {
     "upstream": "15b024a3928ea8a54732bb2f5177ab1668468258"

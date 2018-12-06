@@ -1,13 +1,13 @@
-# Bcash
+# BcoinSV
 
 [![CircleCi Status][circleci-status-img]][circleci-status-url]
 [![Coverage Status][coverage-status-img]][coverage-status-url]
 
-**Bcash** is an alternative implementation of the bitcoin cash protocol,
+**BcoinSV** is an alternative implementation of the bitcoin SV protocol,
 written in node.js.
 
-Bcash is undergoing development and testing and is in alpha stage. Bcash
-is a fork of [bcoin][bcoin] and has the same RPC API.
+BcoinSV is undergoing development and testing and is in alpha stage. BcoinSV
+is a fork of [bcash][bcash] and has the same RPC API.
 
 ## Uses
 
@@ -22,10 +22,10 @@ Try it in the browser: https://bcoin.io/browser/
 ## Install
 
 ```
-$ git clone git://github.com/bcoin-org/bcash.git
-$ cd bcash
+$ git clone git://github.com/brentongunning/bcoinsv.git
+$ cd bcoinsv
 $ npm install
-$ ./bin/bcash
+$ ./bin/bcoinsv
 ```
 
 See the [Beginner's Guide][guide] for more in-depth installation instructions.
@@ -42,7 +42,7 @@ Join us on [freenode][freenode] in the [#bcoin][irc] channel.
 
 ## Disclaimer
 
-Bcash does not guarantee you against theft or lost funds due to bugs, mishaps,
+BcoinSV does not guarantee you against theft or lost funds due to bugs, mishaps,
 or your own incompetence. You and you alone are responsible for securing your
 money.
 

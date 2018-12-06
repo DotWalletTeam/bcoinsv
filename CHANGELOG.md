@@ -1,4 +1,4 @@
-# Bcash Release Notes & Changelog
+# BcoinSV Release Notes & Changelog
 
 ## v1.1.0
 
