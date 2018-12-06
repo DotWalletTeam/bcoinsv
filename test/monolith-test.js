@@ -21,7 +21,7 @@ const flags = [
 function isSuccess(stack, script, expected) {
   for (const flag of flags) {
     const input = stack.clone();
-    script.execute(input, flag);
+    script.execute(input, flag | common.flags.VERIFY_OPMUL);
     // TODO: switch to assert.deepEqual
     assert.strictEqual(input.toString(), expected.toString());
   }
@@ -32,7 +32,7 @@ function isError(stack, script, error) {
     const input = stack.clone();
     let err;
     try {
-      script.execute(input, flag);
+      script.execute(input, flag | common.flags.VERIFY_OPMUL);
     } catch (e) {
       err = e;
     }
@@ -98,7 +98,7 @@ function testMinimalNegative(data, expected) {
   assert.bufferEqual(minimal, expected);
 }
 
-describe('Monolith', function() {
+describe('Monolith', function () {
   it('should match monolith when flag enabled', async () => {
     const stack = new Stack();
     const a = Buffer.from('ab', 'hex');
@@ -291,7 +291,7 @@ describe('Monolith', function() {
     isError(stack, Script.fromString('OP_NUM2BIN'), 'IMPOSSIBLE_ENCODING');
   });
 
-  it('should match arithmetic ops', async () => {
+  it('should match div and mod arithmetic ops', async () => {
     const arithmeticTestCases = [
       // [a, b, div, mod]
       // 0x185377af / 0x85f41b01 = -4
@@ -331,7 +331,26 @@ describe('Monolith', function() {
     }
   });
 
-  for (const op of ['OP_DIV', 'OP_MOD']) {
+  it('should match mul arithmetic ops', async () => {
+    const arithmeticTestCases = [
+      ['01', '01', '01'],
+      ['04', '82', '88'],
+      ['82', '81', '02'],
+      // FIXME: The result is numerically correct but not minimal.
+      ['44444484', '00000002', '00000088888888'],
+      // FIXME: This overflow case should not pass. Bug in Stack or ScriptNum.
+      ['ffffffff', 'ffffffff', '01000000ffffff3f'],
+    ];
+
+    for (const test of arithmeticTestCases) {
+      const a = Buffer.from(test[0], 'hex');
+      const b = Buffer.from(test[1], 'hex');
+      const mul = new Stack([Buffer.from(test[2], 'hex')]);
+      testBitwiseOp(a, b, 'OP_MUL', mul);
+    }
+  })
+
+  for (const op of ['OP_MUL', 'OP_DIV', 'OP_MOD']) {
     it(`should fail ${op} for less than 2 stack items`, async () => {
       let stack = new Stack();
       isError(stack, Script.fromString(op), 'INVALID_STACK_OPERATION');
